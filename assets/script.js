@@ -46,16 +46,11 @@
     });
   }
 
-  /* ---------- highlight current page in nav ---------- */
-  var current = (document.body.getAttribute("data-page") || "").toLowerCase();
-  document.querySelectorAll(".nav-list a[data-page]").forEach(function (a) {
-    if (a.getAttribute("data-page") === current) a.classList.add("is-active");
-  });
-
-  /* ---------- reveal on scroll ---------- */
-  var revealTargets = document.querySelectorAll(".reveal, .reveal-group");
-  if ("IntersectionObserver" in window && revealTargets.length) {
-    var io = new IntersectionObserver(
+  /* ---------- reveal on scroll (reusable: re-run after each SPA page switch) ---------- */
+  var io = null;
+  function ensureRevealObserver() {
+    if (io || !("IntersectionObserver" in window)) return;
+    io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
@@ -66,14 +61,22 @@
       },
       { threshold: 0.16, rootMargin: "0px 0px -40px 0px" }
     );
-    revealTargets.forEach(function (t) {
-      io.observe(t);
-    });
-  } else {
-    revealTargets.forEach(function (t) {
-      t.classList.add("in-view");
-    });
   }
+  function observeReveals(root) {
+    var scope = root || document;
+    var targets = scope.querySelectorAll(".reveal, .reveal-group");
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach(function (t) { t.classList.add("in-view"); });
+      return;
+    }
+    ensureRevealObserver();
+    targets.forEach(function (t) { io.observe(t); });
+  }
+  observeReveals(document);
+  window.OUJ_observeReveals = observeReveals;
+
+  /* expose nav close so the router can collapse the menu after navigating */
+  window.OUJ_closeNav = closeNav;
 
   /* ---------- generic ripple-free press feedback for icon buttons ---------- */
   document.querySelectorAll(".icon-btn[data-toast]").forEach(function (btn) {
@@ -258,4 +261,122 @@
   style.textContent =
     ".toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:#14213b;color:#fff;padding:13px 22px;border-radius:999px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity .3s ease, transform .3s ease;z-index:400;box-shadow:0 14px 30px rgba(0,0,0,.25);} .toast.is-visible{opacity:1;transform:translate(-50%,0);}";
   document.head.appendChild(style);
+})();
+
+/* ==========================================================================
+   SPA router — clean URLs (/beranda, /produk, /lokasi, /customer-service, /qna)
+   No page reload, no #hash routing.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var ROUTES = {
+    "/": "beranda",
+    "/beranda": "beranda",
+    "/produk": "produk",
+    "/lokasi": "lokasi",
+    "/customer-service": "cs",
+    "/qna": "qna"
+  };
+
+  var pages = {};
+  var titles = {};
+  document.querySelectorAll(".page[data-page-key]").forEach(function (el) {
+    var key = el.getAttribute("data-page-key");
+    pages[key] = el;
+    titles[key] = el.getAttribute("data-title") || document.title;
+  });
+
+  var header = document.querySelector(".site-header");
+  var subnav = document.querySelector(".subnav");
+
+  function resolveKey(pathname) {
+    var clean = pathname.replace(/\/+$/, "");
+    if (clean === "") clean = "/";
+    return ROUTES.hasOwnProperty(clean) ? ROUTES[clean] : null;
+  }
+
+  function closeOverlaysOnNavigate() {
+    if (window.OUJ_closeNav) window.OUJ_closeNav();
+    var lightbox = document.querySelector("[data-lightbox]");
+    if (lightbox) lightbox.classList.remove("is-open");
+    document.body.classList.remove("nav-open");
+  }
+
+  function scrollToTarget(id) {
+    var target = id ? document.getElementById(id) : null;
+    if (!target) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      return;
+    }
+    var offset = (header ? header.offsetHeight : 0) + (subnav && !subnav.closest(".page[hidden]") ? subnav.offsetHeight : 0) + 10;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: top, behavior: "auto" });
+  }
+
+  function showPage(key, hashId) {
+    if (!pages[key]) key = "beranda";
+    Object.keys(pages).forEach(function (k) {
+      pages[k].hidden = k !== key;
+    });
+    document.body.setAttribute("data-page", key);
+    if (titles[key]) document.title = titles[key];
+    document.querySelectorAll(".nav-list a[data-page]").forEach(function (a) {
+      a.classList.toggle("is-active", a.getAttribute("data-page") === key);
+    });
+    closeOverlaysOnNavigate();
+    if (window.OUJ_observeReveals) window.OUJ_observeReveals(pages[key]);
+    requestAnimationFrame(function () {
+      scrollToTarget(hashId);
+    });
+  }
+
+  function currentPathAndHash() {
+    return { pathname: location.pathname, hash: location.hash ? location.hash.slice(1) : null };
+  }
+
+  function goTo(pathname, hashId, push) {
+    var key = resolveKey(pathname) || "beranda";
+    var canonicalPath = key === "beranda" && pathname !== "/beranda" ? "/beranda" : pathname.replace(/\/+$/, "") || "/beranda";
+    var url = canonicalPath + (hashId ? "#" + hashId : "");
+    if (push) {
+      if (location.pathname + location.hash !== url) {
+        history.pushState({ key: key }, "", url);
+      }
+    }
+    showPage(key, hashId);
+  }
+
+  document.addEventListener("click", function (e) {
+    var link = e.target.closest("a[href]");
+    if (!link) return;
+    if (link.target === "_blank" || link.hasAttribute("download")) return;
+    var href = link.getAttribute("href");
+    if (!href || href.charAt(0) === "#") return;
+    var url;
+    try {
+      url = new URL(href, location.href);
+    } catch (err) {
+      return;
+    }
+    if (url.origin !== location.origin) return;
+    var key = resolveKey(url.pathname);
+    if (!key) return;
+    e.preventDefault();
+    goTo(url.pathname, url.hash ? url.hash.slice(1) : null, true);
+  });
+
+  window.addEventListener("popstate", function () {
+    var cur = currentPathAndHash();
+    var key = resolveKey(cur.pathname) || "beranda";
+    showPage(key, cur.hash);
+  });
+
+  /* initial render */
+  var start = currentPathAndHash();
+  if (start.pathname === "/" || start.pathname === "") {
+    history.replaceState({ key: "beranda" }, "", "/beranda" + (start.hash ? "#" + start.hash : ""));
+  }
+  var startKey = resolveKey(location.pathname) || "beranda";
+  showPage(startKey, start.hash);
 })();
