@@ -1,9 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    { "source": "/", "destination": "/beranda", "permanent": false },
-    { "source": "/index.html", "destination": "/beranda", "permanent": false },
-    { "source": "/cs", "destination": "/customer-service", "permanent": false }
+  "rewrites": [
+    { "source": "/((?!assets/).*)", "destination": "/index.html" }
   ]
 }
