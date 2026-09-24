@@ -156,10 +156,9 @@ svg{display:block;}
   gap:20px;
 }
 .brand{display:flex; align-items:center; gap:11px;}
-.brand-mark{
-  width:38px; height:38px;
-  flex-shrink:0;
-  color:var(--navy-800);
+.brand-mark{object-fit:contain;}
+.nav-panel-top .brand-mark,
+.footer-brand .brand-mark{filter:brightness(0) invert(1);}
 }
 .brand-text{display:flex; flex-direction:column; line-height:1.12;}
 .brand-text strong{
