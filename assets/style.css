@@ -416,10 +416,10 @@ body.nav-open{overflow:hidden;}
   margin-top:-20px;
   position:relative;
   z-index:3;
-  padding:34px 20px;
+  padding:24px 20px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:20px;
+  gap:14px;
 }
 .stat-item{text-align:center; padding-inline:6px;}
 .stat-icon{
