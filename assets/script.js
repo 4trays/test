@@ -149,17 +149,21 @@
   var tag = lightbox.querySelector("[data-lightbox-tag]");
   var title = lightbox.querySelector("[data-lightbox-title]");
   var desc = lightbox.querySelector("[data-lightbox-desc]");
-  var price = lightbox.querySelector("[data-lightbox-price]");
   var closeEls = lightbox.querySelectorAll("[data-lightbox-close]");
   var lastFocused = null;
 
   function open(card) {
-    var svgSrc = card.querySelector("svg");
-    visual.innerHTML = svgSrc ? svgSrc.outerHTML : "";
+    var img = card.querySelector(".product-thumb img");
+    visual.innerHTML = "";
+    if (img) {
+      var big = document.createElement("img");
+      big.src = img.getAttribute("src");
+      big.alt = card.getAttribute("data-title") || "";
+      visual.appendChild(big);
+    }
     tag.textContent = card.getAttribute("data-tag") || "";
     title.textContent = card.getAttribute("data-title") || "";
     desc.textContent = card.getAttribute("data-desc") || "";
-    price.textContent = card.getAttribute("data-price") || "";
     lastFocused = document.activeElement;
     lightbox.classList.add("is-open");
     document.body.classList.add("nav-open");
