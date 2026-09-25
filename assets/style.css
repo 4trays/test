@@ -413,7 +413,7 @@ body.nav-open{overflow:hidden;}
   background:#fff;
   border-radius:var(--radius-lg);
   box-shadow:var(--shadow-lg);
-  margin-top:-46px;
+  margin-top:-20px;
   position:relative;
   z-index:3;
   padding:34px 20px;
