@@ -381,7 +381,7 @@ body.nav-open{overflow:hidden;}
   overflow:hidden;
   padding-top:56px;
 }
-.hero .container{
+.hero .hero-top{
   display:grid;
   grid-template-columns:1fr 1fr;
   align-items:center;
@@ -529,7 +529,7 @@ body.nav-open{overflow:hidden;}
 .cta-strip .btn{position:relative; z-index:1;}
 
 @media (max-width:920px){
-  .hero .container{grid-template-columns:1fr;}
+  .hero .hero-top{grid-template-columns:1fr;}
   .hero-art{order:-1; max-width:320px;}
   .hero-stats{grid-template-columns:repeat(2,1fr);}
   .banner{grid-template-columns:1fr;}
