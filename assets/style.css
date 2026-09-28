@@ -444,7 +444,7 @@ body.nav-open{overflow:hidden;}
 .banner-art::after{
   content:"";
   position:absolute; inset:0;
-  background:linear-gradient(90deg, rgba(255,255,255,.8) 0%, rgba(255,255,255,.5) 45%, rgba(255,255,255,.05) 100%);
+  background:linear-gradient(90deg, rgba(255,255,255,.75) 0%, rgba(255,255,255,.3) 45%, rgba(255,255,255,.0) 100%);
 }
 
 /* services */
