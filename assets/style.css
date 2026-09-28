@@ -112,7 +112,7 @@ svg{display:block;}
   transition:transform .35s var(--ease-spring), box-shadow .35s var(--ease), background .25s var(--ease), color .25s var(--ease);
   white-space:nowrap;
 }
-.btn svg{width:18px; height:18px; flex-shrink:0;}
+.btn i{width:18px; text-align:center; flex-shrink:0;}
 .btn:active{transform:scale(.96);}
 .btn-primary{
   background:var(--navy-800);
@@ -261,7 +261,7 @@ svg{display:block;}
   transition:background .25s var(--ease), transform .3s var(--ease);
 }
 .nav-close:hover{background:rgba(255,255,255,.12); transform:rotate(90deg);}
-.nav-close svg{width:18px; height:18px;}
+.nav-close i{font-size:1.1rem;}
 
 .nav-list{display:flex; flex-direction:column; gap:4px; margin-bottom:auto;}
 .nav-list li{
@@ -284,10 +284,11 @@ svg{display:block;}
 }
 .nav-list a .n{
   font-family:var(--font-body);
-  font-size:.72rem;
+  font-size:1rem;
   font-weight:600;
   color:rgba(255,255,255,.35);
   width:20px;
+  text-align:center;
 }
 .nav-list a:hover{background:rgba(255,255,255,.08); color:#fff; padding-left:18px;}
 .nav-list a.is-active{color:#fff; background:rgba(63,111,239,.22);}
@@ -322,7 +323,7 @@ body.nav-open{overflow:hidden;}
   margin-bottom:16px;
 }
 .crumb span{color:var(--navy-800);}
-.crumb svg{width:12px; height:12px; color:var(--ink-300);}
+.crumb i{font-size:.65rem; color:var(--ink-300);}
 
 /* ==========================================================================
    Footer
@@ -428,7 +429,7 @@ body.nav-open{overflow:hidden;}
   margin:0 auto 14px;
   transition:transform .4s var(--ease-spring), background .3s var(--ease);
 }
-.stat-icon svg{width:26px; height:26px;}
+.stat-icon i{font-size:1.4rem;}
 .stat-item:hover .stat-icon{transform:translateY(-4px) rotate(-4deg); background:var(--navy-800); color:#fff;}
 .stat-item h3{font-size:.98rem; margin-bottom:4px;}
 .stat-item p{font-size:.85rem; margin:0; color:var(--ink-500);}
@@ -484,7 +485,7 @@ body.nav-open{overflow:hidden;}
   color:var(--navy-800);
   z-index:2;
 }
-.service-badge svg{width:17px; height:17px;}
+.service-badge i{font-size:.95rem;}
 .service-body{padding:20px 22px 24px;}
 .service-body h3{font-size:1.04rem; margin-bottom:6px;}
 .service-body p{font-size:.9rem; margin:0;}
@@ -500,7 +501,7 @@ body.nav-open{overflow:hidden;}
   border-bottom:1px solid var(--line);
 }
 .trust-item{display:flex; align-items:center; gap:12px; color:var(--ink-700); font-weight:600; font-size:.92rem;}
-.trust-item svg{width:22px; height:22px; color:var(--blue-600); flex-shrink:0;}
+.trust-item i{width:22px; font-size:1.2rem; text-align:center; color:var(--blue-600); flex-shrink:0;}
 
 /* CTA strip */
 .cta-strip{
@@ -613,7 +614,7 @@ body.nav-open{overflow:hidden;}
   transition:opacity .3s var(--ease), transform .3s var(--ease);
 }
 .product-card:hover .zoom-hint{opacity:1; transform:scale(1);}
-.zoom-hint svg{width:15px; height:15px;}
+.zoom-hint i{font-size:.85rem;}
 .product-info{padding:16px 18px 20px;}
 .product-info h3{font-size:.98rem; margin-bottom:3px;}
 .product-info .tag{font-size:.78rem; color:var(--ink-500); display:block; margin-bottom:6px;}
@@ -666,7 +667,7 @@ body.nav-open{overflow:hidden;}
   transition:transform .3s var(--ease), background .25s var(--ease);
 }
 .lightbox-close:hover{transform:rotate(90deg); background:var(--blue-100);}
-.lightbox-close svg{width:16px; height:16px;}
+.lightbox-close i{font-size:.95rem;}
 .lightbox-panel{position:relative;}
 
 @media (max-width:760px){
@@ -715,7 +716,7 @@ body.nav-open{overflow:hidden;}
   color:var(--navy-800);
   display:grid; place-items:center;
 }
-.info-row .ic svg{width:19px; height:19px;}
+.info-row .ic i{font-size:1.05rem;}
 .info-row h4{font-size:.92rem; margin-bottom:3px; color:var(--navy-950); font-family:var(--font-display);}
 .info-row p{font-size:.9rem; margin:0; color:var(--ink-500);}
 
