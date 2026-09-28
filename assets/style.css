@@ -57,6 +57,10 @@ body{
   background:var(--paper);
   -webkit-font-smoothing:antialiased;
   line-height:1.55;
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
 }
 h1,h2,h3,h4{
   font-family:var(--font-display);
@@ -327,6 +331,7 @@ body.nav-open{overflow:hidden;}
   background:var(--navy-950);
   color:rgba(255,255,255,.68);
   padding:64px 0 28px;
+  margin-top:auto;
 }
 .footer-grid{
   display:grid;
