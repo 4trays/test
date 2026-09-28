@@ -346,7 +346,7 @@ body.nav-open{overflow:hidden;}
 .footer-col ul{display:flex; flex-direction:column; gap:11px;}
 .footer-col a{font-size:.92rem; transition:color .2s var(--ease), padding-left .2s var(--ease);}
 .footer-col a:hover{color:#fff; padding-left:4px;}
-.footer-col p{font-size:.92rem; margin-bottom:6px;}
+.footer-col p{font-size:.92rem; margin-bottom:6px; color:rgba(255,255,255,.68);}
 .footer-bottom{
   padding-top:24px;
   display:flex;
