@@ -764,6 +764,8 @@ body.nav-open{overflow:hidden;}
   margin:0 auto 18px;
 }
 .cs-avatar svg{width:32px; height:32px;}
+.cs-avatar{overflow:hidden;}
+.cs-avatar img{width:100%; height:100%; object-fit:cover;}
 .cs-card h3{font-size:1.05rem; margin-bottom:2px;}
 .cs-role{font-size:.84rem; color:var(--blue-600); font-weight:600; margin-bottom:16px; display:block;}
 .cs-duty{
