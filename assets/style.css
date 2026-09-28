@@ -539,7 +539,7 @@ body.nav-open{overflow:hidden;}
 
   .hero + .section{padding-top:215px;}
   .hero .hero-top{padding-bottom:210px;}
-  .hero-art img{object-position:90% center;}
+  .hero-art img{object-position:100% center;}
 }
 
 /* ==========================================================================
