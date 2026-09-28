@@ -397,7 +397,7 @@ body.nav-open{overflow:hidden;}
 .hero-art::after{
   content:"";
   position:absolute; inset:0;
-  background:linear-gradient(90deg, rgba(255,255,255,.75) 0%, rgba(255,255,255,.5) 40%, rgba(255,255,255,.75) 100%);
+  background:linear-gradient(90deg, rgba(255,255,255,.75) 0%, rgba(255,255,255,.0) 40%, rgba(255,255,255,.0) 100%);
 }
 .hero-stats-wrap{height:0; overflow:visible;}
 .hero + .section{padding-top:130px;}
