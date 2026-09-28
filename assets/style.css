@@ -756,7 +756,7 @@ body.nav-open{overflow:hidden;}
 }
 .cs-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-md);}
 .cs-avatar{
-  width:74px; height:74px;
+  width:96px; height:96px;
   border-radius:50%;
   background:var(--sky-100);
   color:var(--navy-800);
